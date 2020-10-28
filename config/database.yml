@@ -1,21 +1,25 @@
+# credentials to access DB should be set in local credentials file
+# EDITOR="atom --wait" bin/rails credentials:edit --environment development
+
 primary_default: &primary_default
   adapter: postgresql
-  host: <%=      ENV["PRIMARY_DB_HOST"] || '127.0.0.1' %>
-  port: <%=      ENV["PRIMARY_DB_PORT"] || '5432' %>
-  username: <%=  Rails.application.credentials.dig(:db,:primary, :username) || 'postgres' %>
-  password: <%=  Rails.application.credentials.dig(:db,:primary, :password) || 'postgres' %>
-  database: <%=  ENV["PRIMARY_DB_DATABASE"] || "sbtg_db_#{Rails.env}"   %>
-  pool: <%=      ENV["PRIMARY_DB_POOL"] || '5' %>
-  timeout: <%=   ENV["PRIMARY_DB_TIMEOUT"] || '5000' %>
+  host: <%=      ENV["PRIMARY_DB_HOST"] %>
+  port: <%=      ENV["PRIMARY_DB_PORT"] %>
+  username: <%=  Rails.application.credentials.dig(:db,:primary, :username) %>
+  password: <%=  Rails.application.credentials.dig(:db,:primary, :password) %>
+  database: <%=  ENV["PRIMARY_DB_DATABASE"] %>
+  pool: <%=      ENV["PRIMARY_DB_POOL"] %>
+  timeout: <%=   ENV["PRIMARY_DB_TIMEOUT"] %>
 
 legacy_default: &legacy_default
   adapter: mysql2
-  host: <%=      ENV["LEGACY_DB_HOST"] || '127.0.0.1' %>
-  port: <%=      ENV["LEGACY_DB_PORT"] || '3306' %>
-  username: <%=  Rails.application.credentials.dig(:db, :legacy, :username) || 'root' %>
-  password: <%=  Rails.application.credentials.dig(:db, :legacy, :password) || 'root' %>
-  database: <%=  ENV["LEGACY_DB_DATABASE"] || 'sailboats' ||"sbtg_db_#{Rails.env}" %>
-  pool: <%=      ENV["LEGACY_DB_POOL"] || '5' %>
+  host: <%=      ENV["LEGACY_DB_HOST"] %>
+  port: <%=      ENV["LEGACY_DB_PORT"] %>
+  username: <%=  Rails.application.credentials.dig(:db, :legacy, :username) %>
+  password: <%=  Rails.application.credentials.dig(:db, :legacy, :password) %>
+  database: <%=  ENV["LEGACY_DB_DATABASE"] %>
+  pool: <%=      ENV["LEGACY_DB_POOL"] %>
+  timeout: <%=   ENV["LEGACY_DB_TIMEOUT"] %>
   encoding: utf8
   reconnect: false
   #socket: /tmp/mysql.sock
