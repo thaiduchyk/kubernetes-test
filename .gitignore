@@ -33,3 +33,5 @@
 
 # Ignore rvm config file
 .ruby-gemset
+
+/config/credentials/*
