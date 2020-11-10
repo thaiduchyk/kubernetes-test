@@ -23,7 +23,7 @@ module Legacy
     def import_to_primary
       perform_import do
         payment = build_object(::Payment)
-        payment.payment_type = 'card'
+        payment.type = ::Payment.types[:card]
         order = ::Order.find_by(number: self.order.k_INVOICE_ID)
         payment.order = order
         payment.save!

@@ -39,6 +39,8 @@ class Order < PrimaryBase
   has_many :order_items
   has_many :products, through: :order_items
   has_many :payments
+  has_many :order_parts
+  has_many :parts, through: :order_parts
 
   def update_order_costs
     self.shipping_cost = order_items.sum(&:shipping_cost)
