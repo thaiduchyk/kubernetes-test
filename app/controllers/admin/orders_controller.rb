@@ -3,6 +3,7 @@
 module Admin
   class OrdersController < BaseController
     enable_query_filters %w[number status sale_channel]
+    enable_expand_fields customer: :internal, shipping_address: :internal, billing_address: :internal
 
     def index
       render_collection collection

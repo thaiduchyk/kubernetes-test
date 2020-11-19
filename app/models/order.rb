@@ -42,6 +42,8 @@ class Order < PrimaryBase
   has_many :order_parts
   has_many :parts, through: :order_parts
 
+  scope :with_preloaded_relations, ->(relations) { includes(relations) }
+
   def update_order_costs
     self.shipping_cost = order_items.sum(&:shipping_cost)
     self.total = order_items.sum(&:product_total) + shipping_cost
