@@ -17,7 +17,7 @@ class Utils
       elsif Utils::BOOLEAN_STRINGS['false'].include?(str)
         false
       else
-        raise ArgumentError.new("Invalid value for Boolean: #{str}.")
+        raise ArgumentError, "Invalid value for Boolean: #{str}."
       end
     end
   end
