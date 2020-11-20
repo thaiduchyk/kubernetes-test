@@ -1,0 +1,29 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/admin/orders":
+    get:
+      summary: list orders
+      responses:
+        '200':
+          description: successful
+          content: {}
+  "/admin/orders/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show order
+      responses:
+        '200':
+          description: successful
+          content: {}
+servers:
+- url: http://localhost:3000

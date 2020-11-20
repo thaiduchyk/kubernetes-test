@@ -4,17 +4,20 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # managing env variables
-gem 'dotenv-rails', '~> 2.7.6'
+gem 'dotenv-rails',             '~> 2.7.6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
+gem 'rails',                    '~> 6.0.3', '>= 6.0.3.4'
 # Postgres db adapter
-gem 'pg',    '~>1.2.3'
+gem 'pg',                       '~>1.2.3'
 # mysql db adapter
-gem 'mysql2',    '~>0.5.3'
+gem 'mysql2',                   '~>0.5.3'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'puma',                     '~> 4.1'
 # build JSON responces
 gem 'active_model_serializers', '~> 0.10.0'
+# Swagger API definition
+gem 'rswag-api',                '~>2.3.1'
+gem 'rswag-ui',                 '~>2.3.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -34,7 +37,13 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 1.0.0', require: false
+  gem 'rubocop',       '~> 1.0.0', require: false
+  gem 'rswag-specs',   '~>2.3.1'
+end
+
+group :test do
+	gem 'rspec-rails',         '~>4.0.0'
+	gem 'factory_bot_rails',   '~>6.1.0'
 end
 
 group :development do
