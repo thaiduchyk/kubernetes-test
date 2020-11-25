@@ -8,7 +8,9 @@ module Defaultable
   end
 
   def set_default_values
-    default_values.each { |attr, value| send("#{attr}=", value) if send(attr).nil? }
+    default_values.each do |attr, value|
+      send("#{attr}=", value) if send(attr).nil?
+    end
   end
 
   def default_values

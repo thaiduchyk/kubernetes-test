@@ -5,12 +5,10 @@ module Admin
     enable_query_filters %w[number status sale_channel]
     enable_expand_fields customer: :internal, shipping_address: :internal, billing_address: :internal
 
-    def index
-      render_collection collection
-    end
+    private
 
-    def show
-      render_resource resource
+    def resource_attrs
+      %i[number total shipping_cost tax sale_channel customer_id shipping_address_id billing_address_id]
     end
   end
 end

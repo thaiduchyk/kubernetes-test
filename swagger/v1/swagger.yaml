@@ -3,24 +3,196 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
+components:
+  schemas:
+    order:
+      type: object
+      properties:
+        id:
+          type: integer
+        number:
+          type: string
+        status:
+          type: string
+          enum:
+          - novel
+          - pending_us
+          - pending_them
+          - shipped
+          - cancelled
+        total:
+          type: number
+          format: float
+        shipping_cost:
+          type: number
+          format: float
+        tax:
+          type: number
+          format: float
+        sale_channel:
+          type: string
+          enum:
+          - website
+          - ebay
+          - amazon
+          - other
+        created_at:
+          type: string
+          format: date_time
+      required:
+      - id
+      - number
+      - status
+      - total
+      - shipping_cost
+      - tax
+      - sale_channel
+      - created_at
+    new_order:
+      type: object
+      properties:
+        number:
+          type: string
+        total:
+          type: number
+          format: float
+        shipping_cost:
+          type: number
+          format: float
+        tax:
+          type: number
+          format: float
+        sale_channel:
+          type: string
+          enum:
+          - website
+          - ebay
+          - amazon
+          - other
+        customer_id:
+          type: number
+          format: integer
+        shipping_address_id:
+          type: number
+          format: integer
+        billing_address_id:
+          type: number
+          format: integer
+      required:
+      - number
+      - sale_channel
+      - customer_id
+      - shipping_address_id
+      - billing_address_id
 paths:
   "/admin/orders":
     get:
       summary: list orders
+      tags:
+      - Orders
+      parameters:
+      - name: limit
+        in: query
+        description: Amount of items to return
+        required: false
+        schema:
+          type: integer
+      - name: expand
+        in: query
+        type: string
+        schema:
+          type: string
+          enum:
+          - customer
+          - shipping_address
+          - billing_address
+        description: Expand items with related resources
+        required: false
+      - name: number
+        in: query
+        description: Filter items by parameter name
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        type: string
+        schema:
+          type: string
+          enum:
+          - novel
+          - pending_us
+          - pending_them
+          - shipped
+          - cancelled
+        description: Filter items by parameter name
+        required: false
+      - name: sale_channel
+        in: query
+        type: string
+        schema:
+          type: string
+          enum:
+          - website
+          - ebay
+          - amazon
+          - other
+        description: Filter items by parameter name
+        required: false
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - orders
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/order"
+    post:
+      summary: creates an order
+      tags:
+      - Orders
+      parameters: []
+      responses:
+        '201':
+          description: order created
           content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_order"
   "/admin/orders/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
     get:
       summary: show order
+      tags:
+      - Orders
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      - name: expand
+        in: query
+        type: string
+        schema:
+          type: string
+          enum:
+          - customer
+          - shipping_address
+          - billing_address
+        description: Expand items with related resources
+        required: false
       responses:
         '200':
           description: successful

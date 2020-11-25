@@ -21,6 +21,38 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
+      components: {
+        schemas: {
+          order: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              number: { type: :string },
+              status: { type: :string, enum: Order.statuses.keys },
+              total: { type: :number, format: :float },
+              shipping_cost: { type: :number, format: :float },
+              tax: { type: :number, format: :float },
+              sale_channel: { type: :string, enum: Order.sale_channels.keys },
+              created_at: { type: :string, format: :date_time }
+            },
+            required: [ 'id', 'number', 'status', 'total', 'shipping_cost', 'tax', 'sale_channel', 'created_at' ]
+          },
+          new_order: {
+            type: :object,
+            properties: {
+              number: { type: :string },
+              total: { type: :number, format: :float },
+              shipping_cost: { type: :number, format: :float },
+              tax: { type: :number, format: :float },
+              sale_channel: { type: :string, enum: Order.sale_channels.keys },
+              customer_id: { type: :number, format: :integer },
+              shipping_address_id: { type: :number, format: :integer },
+              billing_address_id: { type: :number, format: :integer }
+            },
+            required: ['number', 'sale_channel', 'customer_id', 'shipping_address_id', 'billing_address_id']
+          },
+        },
+      },
       paths: {},
       servers: [
         {
