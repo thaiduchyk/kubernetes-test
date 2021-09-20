@@ -5,40 +5,45 @@ primary_default: &primary_default
   adapter: postgresql
   host: <%=      ENV["PRIMARY_DB_HOST"] %>
   port: <%=      ENV["PRIMARY_DB_PORT"] %>
-  username: <%=  Rails.application.credentials.dig(:db,:primary, :username) %>
-  password: <%=  Rails.application.credentials.dig(:db,:primary, :password) %>
+  username: <%=  Rails.application.credentials.db[:user] %>
+  password: <%=  Rails.application.credentials.db[:password] %>
   database: <%=  ENV["PRIMARY_DB_DATABASE"] %>
   pool: <%=      ENV["PRIMARY_DB_POOL"] %>
   timeout: <%=   ENV["PRIMARY_DB_TIMEOUT"] %>
 
-legacy_default: &legacy_default
-  adapter: mysql2
-  host: <%=      ENV["LEGACY_DB_HOST"] %>
-  port: <%=      ENV["LEGACY_DB_PORT"] %>
-  username: <%=  Rails.application.credentials.dig(:db, :legacy, :username) %>
-  password: <%=  Rails.application.credentials.dig(:db, :legacy, :password) %>
-  database: <%=  ENV["LEGACY_DB_DATABASE"] %>
-  pool: <%=      ENV["LEGACY_DB_POOL"] %>
-  timeout: <%=   ENV["LEGACY_DB_TIMEOUT"] %>
-  encoding: utf8
-  reconnect: false
-  migrations_paths: db/legacy_migrate
-  #socket: /tmp/mysql.sock
+# legacy_default: &legacy_default
+#   adapter: mysql2
+#   host: <%=      ENV["LEGACY_DB_HOST"] %>
+#   port: <%=      ENV["LEGACY_DB_PORT"] %>
+#   username: <%=  Rails.application.credentials.dig(:db, :legacy, :username) %>
+#   password: <%=  Rails.application.credentials.dig(:db, :legacy, :password) %>
+#   database: <%=  ENV["LEGACY_DB_DATABASE"] %>
+#   pool: <%=      ENV["LEGACY_DB_POOL"] %>
+#   timeout: <%=   ENV["LEGACY_DB_TIMEOUT"] %>
+#   encoding: utf8
+#   reconnect: false
+#   migrations_paths: db/legacy_migrate
+#   #socket: /tmp/mysql.sock
 
 development:
   primary:
     <<: *primary_default
-  legacy:
-    <<: *legacy_default
+  # legacy:
+  #   <<: *legacy_default
 
 test:
   primary:
     <<: *primary_default
-  legacy:
-    <<: *legacy_default
+  # legacy:
+  #   <<: *legacy_default
 
 production:
   primary:
     <<: *primary_default
-  legacy:
-    <<: *legacy_default
+  # legacy:
+  #   <<: *legacy_default
+
+staging:
+  primary:
+    <<: *primary_default
+

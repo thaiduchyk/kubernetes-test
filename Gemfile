@@ -10,7 +10,7 @@ gem 'rails',                    '~> 6.0.3', '>= 6.0.3.4'
 # Postgres db adapter
 gem 'pg',                       '~>1.2.3'
 # mysql db adapter
-gem 'mysql2',                   '~>0.5.3'
+#gem 'mysql2',                   '~>0.5.3'
 # Use Puma as the app server
 gem 'puma',                     '~> 4.1'
 # build JSON responces
@@ -33,6 +33,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
+
+gem 'sidekiq',                 '~>6.0.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

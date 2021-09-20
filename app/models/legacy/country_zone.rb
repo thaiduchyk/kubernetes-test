@@ -10,8 +10,7 @@ module Legacy
       attr = attributes.except('id', 'tax', 'country_id')
       attr[:enabled] = attr.delete('status')
       attr[:country_id] = ::Country.find_by(name: country.name).id
-      cz = ::CountryZone.new(attr)
-      byebug unless cz.save
+      ::CountryZone.new(attr)
     end
   end
 end

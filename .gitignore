@@ -34,8 +34,9 @@
 # Ignore rvm config file
 .ruby-gemset
 
-# Ignore local creadentials files
-/config/credentials/*
-
 # Ignore local env file
 .env.local
+
+/config/credentials/production.key
+
+/config/credentials/staging.key

@@ -21,7 +21,7 @@ class BaseController < ApplicationController
 
   def create
     return render_resource_created(builder.resource, resource_url) if builder.create
-  
+
     raise builder.error
   end
 

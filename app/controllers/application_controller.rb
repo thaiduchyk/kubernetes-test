@@ -4,6 +4,10 @@ class ApplicationController < ActionController::API
   rescue_from StandardError, with: :uncaught_error
   rescue_from Errors::ApiBaseError, with: :render_error
 
+  def version
+    render json: { api_version: '1.0.1' }
+  end
+
   private
 
   def render_error(error)

@@ -3,5 +3,5 @@
 class LegacyBase < ApplicationRecord
   self.abstract_class = true
 
-  connects_to database: { writing: :legacy, reading: :legacy }
+  #connects_to database: { writing: :legacy, reading: :legacy }
 end
