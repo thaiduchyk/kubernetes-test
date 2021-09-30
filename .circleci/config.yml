@@ -6,8 +6,9 @@ orbs:
 workflows:
   build:  
     jobs:
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
           repo: shipyard  
+          tag: $CIRCLE_SHA1
   deploy:
     jobs:
       - aws-eks/update-container-image:
