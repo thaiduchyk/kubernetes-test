@@ -1,0 +1,15 @@
+version: 2.1
+orbs:
+  aws-eks: circleci/aws-eks@1.1.0
+  aws-ecr: circleci/aws-ecr@7.2.0
+
+workflows:
+  build:  
+    jobs:
+      - aws-ecr/build_and_push_image:
+          repo: shipyard  
+  deploy:
+    jobs:
+      - aws-eks/update-container-image:
+          cluster-name: shipyard-cluster
+          container-image-updates: webserver=thaiduchyk/shipyard:$CIRCLE_SHA1        
