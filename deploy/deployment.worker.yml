@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: worker
-        image: thaiduchyk/shipyard:1.0.0
+        image: thaiduchyk/shipyard:latest
         imagePullPolicy: Always
         command: ["bundle", "exec", "sidekiq", "-e", "staging"]

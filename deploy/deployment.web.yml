@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webserver
-        image: thaiduchyk/shipyard:1.0.0
+        image: thaiduchyk/shipyard:latest
         imagePullPolicy: Always
         command: ["bundle", "exec", "puma", "-p", "3000", "-e", "staging"]
         ports:

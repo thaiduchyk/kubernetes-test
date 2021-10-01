@@ -2,14 +2,62 @@ version: 2.1
 orbs:
   aws-eks: circleci/aws-eks@1.1.0
   aws-ecr: circleci/aws-ecr@7.2.0
+  kubernetes: circleci/kubernetes@0.12.0
+
+parameters:
+  create_cluster:
+    type: boolean
+    default: false
+
+jobs:
+  create-kube-cluster:
+    executor: aws-eks/python3
+    parameters:
+      cluster-name:
+        description: |
+          Name of the EKS cluster
+        type: string
+    steps:
+      - checkout
+      - aws-eks/create-cluster:
+          cluster-name: << parameters.cluster-name >>
+          aws-region: $AWS_REGION
+          node-type: t3.micro
+          node-volume-size: 5
+          nodes: 3
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+          install-kubectl: true
+          aws-region: $AWS_REGION
+      - kubernetes/create-or-update-resource:
+          resource-file-path: "deploy/deployment.web.yaml"
+          get-rollout-status: true
+          resource-name: deployment/shipyard-web
+      - kubernetes/create-or-update-resource:
+          resource-file-path: "deploy/deployment.worker.yaml"
+          get-rollout-status: true
+          resource-name: deployment/shipyard-worker
+      - kubernetes/create-or-update-resource:
+          resource-file-path: "deploy/service.web.yaml"
+          resource-name: service/shipyard-load-balancer
 
 workflows:
-  build:  
+  create-cluster:
+    when: << pipeline.parameters.create_cluster >>
+    jobs:
+    - create-kube-cluster:
+       cluster-name: shipyard-cluster
+
+  build:
+    when:
+      not: << pipeline.parameters.create_cluster >>
     jobs:
       - aws-ecr/build-and-push-image:
-          repo: shipyard  
+          repo: shipyard
           tag: $CIRCLE_SHA1
   deploy:
+    when:
+      not: << pipeline.parameters.create_cluster >>
     jobs:
       - aws-eks/update-container-image:
           cluster-name: shipyard-cluster
