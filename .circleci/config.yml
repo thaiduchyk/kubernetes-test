@@ -54,10 +54,10 @@ jobs:
           resource-file-path: "deploy/deployment.web.yml"
           get-rollout-status: true
           resource-name: deployment/shipyard-web
-#      - kubernetes/create-or-update-resource:
-#          resource-file-path: "deploy/deployment.worker.yml"
-#          get-rollout-status: true
-#          resource-name: deployment/shipyard-worker
+     - kubernetes/create-or-update-resource:
+         resource-file-path: "deploy/deployment.worker.yml"
+         get-rollout-status: false
+         resource-name: deployment/shipyard-worker
       - kubernetes/create-or-update-resource:
           resource-file-path: "deploy/service.web.yaml"
           resource-name: service/shipyard-load-balancer
