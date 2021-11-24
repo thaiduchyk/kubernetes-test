@@ -77,6 +77,6 @@ workflows:
           tag: $CIRCLE_SHA1,latest
       - aws-eks/update-container-image:
           cluster-name: shipyard-cluster
-          container-image-updates: webserver=thaiduchyk/shipyard:$CIRCLE_SHA1
+          container-image-updates: webserver=666658136021.dkr.ecr.eu-central-1.amazonaws.com/shipyard:$CIRCLE_SHA1
           requires:
             - aws-ecr/build-and-push-image
