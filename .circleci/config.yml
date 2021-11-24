@@ -59,7 +59,7 @@ jobs:
          get-rollout-status: false
          resource-name: deployment/shipyard-worker
       - kubernetes/create-or-update-resource:
-          resource-file-path: "deploy/service.web.yaml"
+          resource-file-path: "deploy/service.web.yml"
           resource-name: service/shipyard-load-balancer
 
 workflows:
