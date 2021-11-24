@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: worker
-        image: thaiduchyk/shipyard:latest
+        image: 666658136021.dkr.ecr.eu-central-1.amazonaws.com/shipyard:latest
         imagePullPolicy: Always
         command: ["bundle", "exec", "sidekiq", "-e", "staging"]
