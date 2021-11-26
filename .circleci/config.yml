@@ -10,7 +10,7 @@ parameters:
     default: false
   run_build:
     type: boolean
-    default: false
+    default: true
 
 jobs:
   create-kube-cluster:
