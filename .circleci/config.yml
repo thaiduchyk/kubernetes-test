@@ -74,9 +74,12 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image:
           repo: shipyard
-          tag: $CIRCLE_SHA1,latest
+          tag: $CIRCLE_SHA1,latest,$CIRCLE_TAG
       - aws-eks/update-container-image:
           cluster-name: shipyard-cluster
-          container-image-updates: webserver=666658136021.dkr.ecr.eu-central-1.amazonaws.com/shipyard:$CIRCLE_SHA1
+          container-image-updates: webserver=666658136021.dkr.ecr.eu-central-1.amazonaws.com/shipyard:$CIRCLE_TAG
           requires:
             - aws-ecr/build-and-push-image
+          filters:
+              tags:
+                only : /^rel-.*/
