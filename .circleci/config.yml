@@ -78,6 +78,7 @@ workflows:
       - aws-eks/update-container-image:
           cluster-name: shipyard-cluster
           container-image-updates: webserver=666658136021.dkr.ecr.eu-central-1.amazonaws.com/shipyard:$CIRCLE_TAG
+          aws-region: $AWS_REGION
           requires:
             - aws-ecr/build-and-push-image
           filters:
