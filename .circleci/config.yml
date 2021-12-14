@@ -82,5 +82,7 @@ workflows:
           requires:
             - aws-ecr/build-and-push-image
           filters:
-              tags:
-                only : /^rel-.*/
+            branches:
+              ignore: /.*/
+            tags:
+              only : /^rel-.*/
