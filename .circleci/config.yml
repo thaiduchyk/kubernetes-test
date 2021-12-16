@@ -102,7 +102,7 @@ workflows:
       - update-image:
           cluster-name: shipyard-cluster
           resource-name: deployment/shipyard-web
-          container-image-updates: app=666658136021.dkr.ecr.eu-central-1.amazonaws.com/shipyard:$CIRCLE_TAG
+          container-image-updates: webserver=666658136021.dkr.ecr.eu-central-1.amazonaws.com/shipyard:$CIRCLE_TAG
           requires:
             - aws-ecr/build-and-push-image
           filters:
