@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   aws-eks: circleci/aws-eks@1.1.0
   aws-ecr: circleci/aws-ecr@7.2.0
-  kubernetes: circleci/kubernetes@0.12.0
+  kubernetes: circleci/kubernetes@1.0.2
 
 parameters:
   create_cluster:
@@ -61,6 +61,26 @@ jobs:
       - kubernetes/create-or-update-resource:
           resource-file-path: "deploy/service.web.yml"
           resource-name: service/shipyard-load-balancer
+    update-image:
+      executor: aws-eks/python3
+      parameters:
+        cluster-name:
+          type: string
+        container-image-updates:
+          type: string
+        resource-name:
+          type: string
+      steps:
+        - aws-eks/update-kubeconfig-with-authenticator:
+            cluster-name: << parameters.cluster-name >>
+            install-kubectl: true
+            aws-region: $AWS_REGION
+        - kubernetes/update-container-image:
+            container-image-updates: << parameters.container-image-updates >>
+            resource-name: << parameters.resource-name >>
+            show-kubectl-command: true
+            watch-rollout-status: true
+
 
 workflows:
   create-cluster:
@@ -78,10 +98,8 @@ workflows:
           filters:
             tags:
               only : /.*/
-      - aws-eks/update-container-image:
+      - update-image:
           cluster-name: shipyard-cluster
-          container-image-updates: webserver=666658136021.dkr.ecr.eu-central-1.amazonaws.com/shipyard:$CIRCLE_TAG
-          aws-region: $AWS_REGION
           resource-name: deployment/shipyard-web
           requires:
             - aws-ecr/build-and-push-image
