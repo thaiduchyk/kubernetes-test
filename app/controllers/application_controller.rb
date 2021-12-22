@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
   rescue_from Errors::ApiBaseError, with: :render_error
 
   def version
-    render json: { api_version: '1.0.3' }
+    render json: { api_version: '1.0.4' }
   end
 
   private
